@@ -1,10 +1,10 @@
-import { extendTheme } from "@chakra-ui/react";
-import { ExtendedButtons as Button } from "./components/Buttons";
-import { ExtendedText as Text } from "./components/Text";
+import { extendTheme } from '@chakra-ui/react';
+import { ExtendedButtons as Button } from './components/Buttons';
+import { ExtendedText as Text } from './components/Text';
 const theme = extendTheme({
   config: {
-    // useSystemColorMode: true,
-    // initialColorMode: 'dark',
+    useSystemColorMode: true,
+    initialColorMode: 'light',
   },
   fonts: {
     heading: `'Open Sans', sans-serif`,
@@ -13,6 +13,9 @@ const theme = extendTheme({
   components: {
     Button,
     Text,
+  },
+  colors: {
+    mOrange: '#f57224',
   },
 });
 
