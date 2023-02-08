@@ -1,8 +1,9 @@
 import { Box, Flex } from '@chakra-ui/layout';
 import React from 'react';
+import TabStack from '../CategoryTabs/TabStack';
 import Hero from '../Hero';
-import NavBar from '../nav-bar';
-import SearchBar from '../searchBar';
+import NavBar from '../NavBar';
+import SearchBar from '../SearchBar';
 
 const Layout = () => {
   return (
@@ -13,6 +14,7 @@ const Layout = () => {
           <SearchBar />
         </Box>
         <Hero />
+        {/* <TabStack /> */}
       </Flex>
     </>
   );
