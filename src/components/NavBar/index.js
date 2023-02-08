@@ -5,8 +5,9 @@ import styles from './nav.module.css';
 const NavBar = () => {
   const navItems = [
     { id: 1, title: 'EXPLORE STORE', ref: '/' },
-    { id: 2, title: 'LOGIN', ref: '/' },
-    { id: 3, title: 'SIGN', ref: '/' },
+    { id: 2, title: 'ADD PRODUCT', ref: '/addProduct' },
+    { id: 3, title: 'LOGIN', ref: '/login' },
+    { id: 4, title: 'SIGN', ref: '/sign-up' },
   ];
 
   const [selectedLink, setSelectedLink] = useState();
@@ -18,9 +19,14 @@ const NavBar = () => {
     <Flex className={styles.navbar} justify="space-around">
       <HStack gap={6}>
         {navItems.map((item) => (
-          <Link href="/" key={item.id} onClick={() => setSelected(item.id)}>
+          <Link
+            href={item.ref}
+            key={item.id}
+            onClick={() => setSelected(item.id)}
+          >
             <Text
               variant={selectedLink !== item.id ? 'navText' : 'navTextSelected'}
+              fontSize="sm"
             >
               {' '}
               {item.title}
