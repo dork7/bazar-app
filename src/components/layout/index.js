@@ -1,13 +1,14 @@
 import { Box, Flex } from '@chakra-ui/layout';
 import React from 'react';
 import TabStack from '../CategoryTabs/TabStack';
+import Footer from '../Footer';
 import Hero from '../Hero';
 import NavBar from '../NavBar';
 import ProductCard from '../ProductCard';
 import ProductSection from '../ProductSection';
 import SearchBar from '../SearchBar';
 
-const Layout = () => {
+const Layout = ({ children }) => {
   return (
     <>
       <NavBar />
@@ -25,8 +26,9 @@ const Layout = () => {
           pt={4}
           pb={4}
         >
-          <ProductSection title={'Products'} />
+          {children}
         </Flex>
+        <Footer />
       </Flex>
     </>
   );
