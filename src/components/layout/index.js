@@ -16,7 +16,6 @@ const Layout = ({ children }) => {
         <Box w="70%">
           <SearchBar />
         </Box>
-        <Hero />
         <Flex
           w="full"
           justify="center"

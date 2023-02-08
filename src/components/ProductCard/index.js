@@ -14,10 +14,10 @@ import {
 import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
 import { FiShoppingCart } from 'react-icons/fi';
 
-function Rating({ rating, numReviews }) {
+export function Rating({ rating, numReviews, ...props }) {
   return (
     <>
-      <Flex>
+      <Flex {...props}>
         {Array(5)
           .fill('')
           .map((_, i) => {
