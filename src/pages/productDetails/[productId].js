@@ -11,33 +11,59 @@ import {
   Text,
 } from '@chakra-ui/react';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { BsCashCoin } from 'react-icons/bs';
 import { GiReturnArrow, GiStorkDelivery } from 'react-icons/gi';
 import { GoLocation } from 'react-icons/go';
 import styles from './productDetail.module.css';
+import useSWR from 'swr';
 const ProductDetail = (props) => {
-  const { isNew, imageURL, name, price, rating, numReviews } =
-    props?.productDetails ?? '';
+  // const { isNew, imageURL, name, price, rating, numReviews } =
+  //   props?.productDetails ?? '';
 
+  const params = useRouter();
+
+  const { productId } = params.query;
+
+  const [productDetails, setProductDetails] = useState(
+    props?.productDetails ?? ''
+  );
+
+  const { data, error, isLoading } = useSWR(
+    `/api/products/${productId}`,
+    (apiURL) => fetch(apiURL).then((res) => res.json())
+  );
+  useEffect(() => {
+    if (data) {
+      setProductDetails(data[0]);
+    }
+    return () => {};
+  }, [data]);
   return (
     <Flex gap={6} p={4} bg="white" justify={'space-between'} wrap="wrap">
-      <Box>
+      <Box h={400} display="flex" alignItems={'center'}>
         <Image
           height={400}
           width={400}
-          alt={name}
-          src={imageURL}
+          alt={productDetails.name}
+          src={productDetails.imageURL}
           style={{ objectFit: 'cover' }}
         />
       </Box>
       <Box as={'header'} display={'flex'} flexDir={'column'} gap={4}>
         <Heading lineHeight={1.1} fontWeight={600} fontSize={{ base: '2xl' }}>
-          {name}
+          {productDetails.name}
         </Heading>
-        <Rating {...{ rating, numReviews }} />
+        <Rating
+          {...{
+            rating: productDetails.rating,
+            numReviews: productDetails.numReviews,
+          }}
+        />
         <Divider />
         <Text color={'mOrange'} fontWeight={300} fontSize={'2xl'}>
-          Rs {price}
+          Rs {productDetails.price}
         </Text>
         <Divider />
 
@@ -96,20 +122,8 @@ const ProductDetail = (props) => {
 
 export async function getStaticProps(context) {
   const productId = context.params.productId;
-
-  console.log('productId :>> ', productId);
   const product = await getProductById(productId);
-  console.log('product :>> ', product);
 
-  const data = {
-    isNew: false,
-    imageURL:
-      'https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=4600&q=80',
-    name: 'Wayfarer Classic',
-    price: 4000,
-    rating: 4.2,
-    numReviews: 34,
-  };
   return {
     props: {
       productDetails: product[0],
@@ -120,7 +134,6 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
   const { productIds } = await getStaticProductIds();
-  console.log('productIds :>> ', productIds);
   return {
     paths: productIds,
     fallback: true,

@@ -59,15 +59,17 @@ const ProductCard = (props) => {
           color: 'mOrange',
         }}
       >
-        <Image
-          src={data.imageURL}
-          alt={`Picture of ${data.name}`}
-          width={120}
-          height={120}
-          layout="responsive"
-          // showThumbs={false}
-          style={{ objectFit: 'cover' }}
-        />
+        <Box h={120} display="flex" alignItems={'center'}>
+          <Image
+            src={data.imageURL}
+            alt={`Picture of ${data.name}`}
+            width={120}
+            height={120}
+            layout="responsive"
+            // showThumbs={false}
+            style={{ objectFit: 'cover' }}
+          />
+        </Box>
 
         <Box p="6">
           <Box d="flex" alignItems="baseline">
