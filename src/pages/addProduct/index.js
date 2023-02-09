@@ -11,7 +11,7 @@ import {
   RadioGroup,
   Switch,
 } from '@chakra-ui/react';
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { FaIoxhost } from 'react-icons/fa';
 import NotificationContext from '@/store/NotificationContext';
@@ -46,7 +46,7 @@ const AddProduct = () => {
 
     // const fetcher = url => axios.get(url).then(res => res.data)
     try {
-      const data = await axios.post('/api/products', {
+      const data = await fetch('/api/products', {
         method: 'POST',
         body: formData,
       });
