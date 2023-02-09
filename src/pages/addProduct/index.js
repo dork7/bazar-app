@@ -39,8 +39,8 @@ const AddProduct = () => {
     formData.append('userId', 'DUMMY ID');
 
     notificationCtx.showNotification({
-      title: 'Signing up....',
-      message: 'Sabar karo',
+      title: 'Adding product',
+      message: 'Wait please',
       status: 'pending',
     });
 
@@ -52,7 +52,7 @@ const AddProduct = () => {
       });
       console.log('data :>> ', data);
       notificationCtx.showNotification({
-        title: 'Success',
+        title: 'Product Added',
         message: 'Ho gya, Mubarik ho',
         status: 'success',
       });

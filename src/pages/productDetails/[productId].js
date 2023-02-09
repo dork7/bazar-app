@@ -17,8 +17,8 @@ import { useEffect, useState } from 'react';
 import { BsCashCoin } from 'react-icons/bs';
 import { GiReturnArrow, GiStorkDelivery } from 'react-icons/gi';
 import { GoLocation } from 'react-icons/go';
-import styles from './productDetail.module.css';
 import useSWR from 'swr';
+import styles from './productDetail.module.css';
 const ProductDetail = (props) => {
   // const { isNew, imageURL, name, price, rating, numReviews } =
   //   props?.productDetails ?? '';

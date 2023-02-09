@@ -7,7 +7,7 @@ const NavBar = () => {
     { id: 1, title: 'EXPLORE STORE', ref: '/' },
     { id: 2, title: 'ADD PRODUCT', ref: '/addProduct' },
     { id: 3, title: 'LOGIN', ref: '/login' },
-    { id: 4, title: 'SIGN', ref: '/sign-up' },
+    { id: 4, title: 'SIGN UP', ref: '/sign-up' },
   ];
 
   const [selectedLink, setSelectedLink] = useState();

@@ -30,3 +30,17 @@ export async function getStaticProductIds(productId) {
   const data = await response.json();
   return data;
 }
+
+export async function signUp(body) {
+  console.log('bodyo :>> ', body);
+  const response = await fetch(`/api/sign-up`, {
+    method: 'POST',
+    body,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  const data = await response.json();
+  return data;
+}
