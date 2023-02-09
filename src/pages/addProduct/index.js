@@ -11,9 +11,10 @@ import {
   RadioGroup,
   Switch,
 } from '@chakra-ui/react';
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import axios from 'axios';
 import { FaIoxhost } from 'react-icons/fa';
+import NotificationContext from '@/store/NotificationContext';
 
 const AddProduct = () => {
   const imageRef = useRef();
@@ -23,6 +24,7 @@ const AddProduct = () => {
   const ratingsRef = useRef();
   const [rating, setRating] = React.useState('1');
   const [genStaticPages, setGentStaticPages] = React.useState(false);
+  const notificationCtx = useContext(NotificationContext);
 
   const formSubmitted = async (e) => {
     e.preventDefault();
@@ -34,14 +36,33 @@ const AddProduct = () => {
     formData.append('numOfReviews', numOfReviewsRef.current.value);
     formData.append('rating', rating);
     formData.append('genStaticPages', genStaticPages);
+    formData.append('userId', 'DUMMY ID');
 
-    // const fetcher = url => axios.get(url).then(res => res.data)
-    const data = await axios.post('/api/products', {
-      method: 'POST',
-      body: formData,
+    notificationCtx.showNotification({
+      title: 'Signing up....',
+      message: 'Sabar karo',
+      status: 'pending',
     });
 
-    console.log('data :>> ', data);
+    // const fetcher = url => axios.get(url).then(res => res.data)
+    try {
+      const data = await axios.post('/api/products', {
+        method: 'POST',
+        body: formData,
+      });
+      console.log('data :>> ', data);
+      notificationCtx.showNotification({
+        title: 'Success',
+        message: 'Ho gya, Mubarik ho',
+        status: 'success',
+      });
+    } catch (err) {
+      notificationCtx.showNotification({
+        title: 'Error !',
+        message: err.message || 'Masla ho gya ha',
+        status: 'error',
+      });
+    }
   };
 
   return (

@@ -1,14 +1,19 @@
+import NotificationContext from '@/store/NotificationContext';
 import { Box, Flex } from '@chakra-ui/layout';
-import React from 'react';
+import React, { useContext } from 'react';
 import TabStack from '../CategoryTabs/TabStack';
 import Footer from '../Footer';
 import Hero from '../Hero';
 import NavBar from '../NavBar';
+import Notification from '../Notification/notification';
 import ProductCard from '../ProductCard';
 import ProductSection from '../ProductSection';
 import SearchBar from '../SearchBar';
 
 const Layout = ({ children }) => {
+  const notificationContext = useContext(NotificationContext);
+
+  const notification = notificationContext.notification;
   return (
     <>
       <NavBar />
@@ -29,6 +34,13 @@ const Layout = ({ children }) => {
         </Flex>
         <Footer />
       </Flex>
+      {notification && (
+        <Notification
+          title={notification?.title}
+          message={notification?.message}
+          status={notification?.status}
+        />
+      )}
     </>
   );
 };
