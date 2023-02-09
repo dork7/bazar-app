@@ -31,6 +31,6 @@ const readFile = (req, saveLocally) => {
 };
 
 export default async function handler(req, res) {
-  await readFile(req, true);
-  res.status(200).json({ name: 'John Doe' });
+  const result = await readFile(req, true);
+  res.status(200).json({ result });
 }

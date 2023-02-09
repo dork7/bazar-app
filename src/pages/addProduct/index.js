@@ -12,6 +12,8 @@ import {
   Switch,
 } from '@chakra-ui/react';
 import React, { useRef } from 'react';
+import axios from 'axios';
+import { FaIoxhost } from 'react-icons/fa';
 
 const AddProduct = () => {
   const imageRef = useRef();
@@ -24,27 +26,22 @@ const AddProduct = () => {
 
   const formSubmitted = async (e) => {
     e.preventDefault();
-    console.log('imageRef :>> ', imageRef);
-    console.log('refs :>> ');
-    console.log(imageRef.current.files);
-    console.log(nameRef.current.value);
-    console.log(priceRef.current.value);
-    console.log(numOfReviewsRef.current.value);
-    console.log(rating);
-    console.log(genStaticPages);
-
     const imgFile = imageRef.current.files[0];
-
     const formData = new FormData();
     formData.append('imageFile', imgFile);
-    const data = await fetch('/api/products', {
+    formData.append('name', nameRef.current.value);
+    formData.append('price', priceRef.current.value);
+    formData.append('numOfReviews', numOfReviewsRef.current.value);
+    formData.append('rating', rating);
+    formData.append('genStaticPages', genStaticPages);
+
+    // const fetcher = url => axios.get(url).then(res => res.data)
+    const data = await axios.post('/api/products', {
       method: 'POST',
       body: formData,
-      dataType: 'jsonp',
     });
 
-    const result = await data.json();
-    console.log('data.json ():>> ', result);
+    console.log('data :>> ', data);
   };
 
   return (
