@@ -1,13 +1,16 @@
 import Hero from '@/components/Hero';
 import ProductSection from '@/components/ProductSection';
+import UserContext from '@/store/UserContext';
 import { getAllProducts } from '@/utils/api.utils';
 import { Inter } from '@next/font/google';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import useSWR from 'swr';
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home(props) {
   const { preFetchedProducts } = props;
+  const userCTX = useContext(UserContext);
+
   const [products, setProducts] = useState(preFetchedProducts);
   const { data, error, isLoading } = useSWR('/api/products', (apiURL) =>
     fetch(apiURL).then((res) => res.json())
@@ -18,6 +21,7 @@ export default function Home(props) {
     }
     return () => {};
   }, [data]);
+  console.log('userCTX :>> ', userCTX.user);
 
   return (
     <>

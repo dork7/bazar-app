@@ -31,7 +31,7 @@ export default async function handler(req, res) {
         return res.status(500).json({ message: 'Incorrect Password' });
       }
 
-      res.status(200).json({ msg: 'Sign up success' });
+      res.status(200).json({ msg: 'Sign up success', user: user[0] });
     } catch (err) {
       console.log('err :>> ', err);
       res.status(500).json({ msg: 'unable to insert data' });

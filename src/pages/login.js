@@ -19,6 +19,7 @@ import { FaUserAlt, FaLock, FaMobile } from 'react-icons/fa';
 import NotificationContext from '@/store/NotificationContext';
 import { signUp } from '@/utils/api.utils';
 import { useRouter } from 'next/router';
+import UserContext from '@/store/UserContext';
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -26,6 +27,7 @@ const CFaMobile = chakra(FaMobile);
 
 const Login = () => {
   const router = useRouter();
+  const userCTX = useContext(UserContext);
   const { query } = router;
 
   const [showPassword, setShowPassword] = useState(false);
@@ -70,6 +72,7 @@ const Login = () => {
         message: 'You are now logged in',
         status: 'success',
       });
+      userCTX.setUserInfo(data.user);
       router.push(`/`);
     } catch (err) {
       console.log('err :>> ', err);
