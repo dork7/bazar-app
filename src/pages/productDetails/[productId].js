@@ -8,6 +8,7 @@ import {
   Flex,
   Heading,
   HStack,
+  Spinner,
   Text,
 } from '@chakra-ui/react';
 import Image from 'next/image';
@@ -26,44 +27,61 @@ const ProductDetail = (props) => {
 
   const { productId } = params.query;
 
-  const [productDetails, setProductDetails] = useState(
-    props?.productDetails ?? ''
-  );
+  const [productDetails, setProductDetails] = useState(props?.productDetails);
 
   const { data, error, isLoading } = useSWR(
     `/api/products/${productId}`,
     (apiURL) => fetch(apiURL).then((res) => res.json())
   );
+
   useEffect(() => {
     if (data) {
       setProductDetails(data[0]);
     }
     return () => {};
   }, [data]);
+
+  if (!productDetails) {
+    return (
+      <Flex
+        gap={6}
+        p={4}
+        bg="white"
+        justify={'center'}
+        align={'center'}
+        wrap="wrap"
+        h={500}
+        w={'70vw'}
+      >
+        <Spinner size={'xl'} />
+      </Flex>
+    );
+  }
+
   return (
     <Flex gap={6} p={4} bg="white" justify={'space-between'} wrap="wrap">
       <Box h={400} display="flex" alignItems={'center'}>
         <Image
           height={400}
           width={400}
-          alt={productDetails.name}
-          src={productDetails.imageURL}
+          alt={productDetails?.name}
+          src={productDetails?.imageURL}
           style={{ objectFit: 'cover' }}
         />
       </Box>
       <Box as={'header'} display={'flex'} flexDir={'column'} gap={4}>
         <Heading lineHeight={1.1} fontWeight={600} fontSize={{ base: '2xl' }}>
-          {productDetails.name}
+          {productDetails?.name}
         </Heading>
         <Rating
           {...{
-            rating: productDetails.rating,
-            numReviews: productDetails.numReviews,
+            rating: productDetails?.rating,
+            numReviews: productDetails?.numReviews,
           }}
         />
         <Divider />
         <Text color={'mOrange'} fontWeight={300} fontSize={'2xl'}>
-          Rs {productDetails.price}
+          Rs {productDetails?.price}
         </Text>
         <Divider />
 
@@ -85,7 +103,7 @@ const ProductDetail = (props) => {
       </Box>
       <Box
         bg="#f5f5f5"
-        p={2}
+        p={4}
         display={'flex'}
         flexDir={'column'}
         gap={4}
@@ -128,7 +146,7 @@ export async function getStaticProps(context) {
     props: {
       productDetails: product[0],
     },
-    revalidate: 60,
+    // revalidate: 60,
   };
 }
 

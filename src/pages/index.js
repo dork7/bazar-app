@@ -25,7 +25,7 @@ export default function Home(props) {
       <ProductSection
         title={'Products'}
         products={products}
-        isLoading={!preFetchedProducts && !data}
+        isLoading={!preFetchedProducts || isLoading}
       />
     </>
   );
@@ -38,6 +38,6 @@ export async function getStaticProps(context) {
     props: {
       preFetchedProducts: data.products,
     },
-    // revalidate: 10,
+    // revalidate: 100,
   };
 }

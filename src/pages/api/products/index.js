@@ -65,10 +65,8 @@ export default async function handler(req, res) {
     }
     res.status(200).json({ msg: 'data written', result });
   } else if (req.method === 'GET') {
-    console.log('req.method :>> ', req.method);
     try {
       const products = await getDocuments(client, 'products', {});
-      console.log('products :>> ', products);
       res.status(200).json({ products });
     } catch (err) {
       res.status(500).json({ msg: 'unable to fetch data' });
