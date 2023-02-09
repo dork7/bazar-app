@@ -14,6 +14,7 @@ const ProductSection = (props) => {
           as="h2"
           color={'gray.500'}
           isTruncated
+          pb={4}
         >
           {title}
         </Box>
@@ -22,7 +23,7 @@ const ProductSection = (props) => {
             <Spinner size="lg" />
           </Flex>
         ) : (
-          <Grid templateColumns="repeat(6, 1fr)" gap={2} mb={4}>
+          <Grid templateColumns="repeat(6, 1fr)" gap={2} mb={4} py={4}>
             {productList?.length < 1 ? (
               <Box
                 fontSize="2xl"

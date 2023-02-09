@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
+import { hashPassword } from '@/utils/auth';
 import {
   connectDataBase,
   getDocuments,
@@ -25,6 +26,7 @@ export default async function handler(req, res) {
       if (user.length > 0) {
         return res.status(500).json({ message: 'User Already exist' });
       }
+      body.password = await hashPassword(body.password);
       await insertDocument(client, 'users', { ...body });
       res.status(200).json({ msg: 'Sign up success' });
     } catch (err) {

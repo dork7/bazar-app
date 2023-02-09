@@ -52,6 +52,7 @@ const ProductCard = (props) => {
       <Box
         bg={useColorModeValue('white', 'gray.800')}
         maxW="200"
+        maxH="250"
         shadow="lg"
         //   position="relative"
         _hover={{
@@ -59,7 +60,12 @@ const ProductCard = (props) => {
           color: 'mOrange',
         }}
       >
-        <Box h={120} display="flex" alignItems={'center'}>
+        <Box
+          h={120}
+          display="flex"
+          alignItems={'center'}
+          justifyContent="center"
+        >
           <Image
             src={data.imageURL}
             alt={`Picture of ${data.name}`}

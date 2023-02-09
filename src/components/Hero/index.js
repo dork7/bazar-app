@@ -12,7 +12,7 @@ const imgList = [
 ];
 const Hero = () => {
   return (
-    <Box maxH={400} w={'70%'}>
+    <Box minH={400} w={'70%'}>
       <Carousel autoPlay infiniteLoop showArrows={false}>
         {imgList.map((item, idx) => {
           return (

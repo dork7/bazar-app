@@ -8,6 +8,7 @@ import {
   getDocuments,
   insertDocument,
 } from '@/utils/db-utils';
+import { matchPassword } from '@/utils/auth';
 
 export default async function handler(req, res) {
   let client = null;
@@ -25,9 +26,13 @@ export default async function handler(req, res) {
       const { email } = body;
       const user = await getDocuments(client, 'users', { email });
       if (user.length < 1) {
+        client.close();
         return res.status(500).json({ message: 'No such user' });
       }
-      if (user[0].password !== body.password) {
+
+      const isPassValid = await matchPassword(body.password, user[0].password);
+      if (!isPassValid) {
+        client.close();
         return res.status(500).json({ message: 'Incorrect Password' });
       }
 
