@@ -4,7 +4,7 @@ import ProductCard from '../ProductCard';
 
 const ProductSection = (props) => {
   const { title, isLoading, products } = props;
-  const productList = products;
+  const productList = products ?? [];
   return (
     <>
       <Flex w="70%" justify="space-between" gap={4} flexDir={'column'}>
@@ -23,7 +23,7 @@ const ProductSection = (props) => {
           </Flex>
         ) : (
           <Grid templateColumns="repeat(6, 1fr)" gap={2} mb={4}>
-            {productList.length < 1 ? (
+            {productList?.length < 1 ? (
               <Box
                 fontSize="2xl"
                 as="h2"

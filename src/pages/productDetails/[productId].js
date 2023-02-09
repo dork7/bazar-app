@@ -1,14 +1,16 @@
 import { NumberInput } from '@/components/Inputs/NumberInput';
 import { Rating } from '@/components/ProductCard';
+import { getProductById, getStaticProductIds } from '@/utils/api.utils';
 import {
   Box,
   Button,
   Divider,
   Flex,
-  Heading,
+  ading,
   HStack,
   Stack,
   Text,
+  Heading,
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import { BsCashCoin } from 'react-icons/bs';
@@ -16,16 +18,9 @@ import { GiReturnArrow, GiStorkDelivery } from 'react-icons/gi';
 import { GoLocation } from 'react-icons/go';
 import styles from './productDetail.module.css';
 const ProductDetail = (props) => {
-  console.log('props :>> ', props);
-  const { isNew, imageURL, name, price, rating, numReviews } = {
-    isNew: false,
-    imageURL:
-      'https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=4600&q=80',
-    name: 'Wayfarer Classic',
-    price: 4000,
-    rating: 4.2,
-    numReviews: 34,
-  };
+  // if (!props.productDetails) return 'loading';
+  const { isNew, imageURL, name, price, rating, numReviews } =
+    props?.productDetails ?? '';
 
   return (
     <Flex gap={6} p={4} bg="white" justify={'space-between'} wrap="wrap">
@@ -105,6 +100,10 @@ const ProductDetail = (props) => {
 export async function getStaticProps(context) {
   const productId = context.params.productId;
 
+  console.log('productId :>> ', productId);
+  const product = await getProductById(productId);
+  console.log('product :>> ', product);
+
   const data = {
     isNew: false,
     imageURL:
@@ -116,18 +115,20 @@ export async function getStaticProps(context) {
   };
   return {
     props: {
-      productDetails: data,
+      productDetails: product[0],
     },
     revalidate: 60,
   };
 }
 
 export async function getStaticPaths() {
+  const productIds = await getStaticProductIds();
+  console.log('productIds :>> ', productIds);
   return {
     paths: [
       {
         params: {
-          productId: '12',
+          productId: 'B4lZ3',
         },
       },
     ],

@@ -17,3 +17,12 @@ export async function getDocuments(client, collection, query) {
     .sort({ _id: -1 })
     .toArray();
 }
+
+export async function getStaticProductIds(client, collection, query) {
+  const db = client.db();
+  return await db
+    .collection(collection)
+    .find({ ...query }, { productId: 1 })
+    .sort({ _id: -1 })
+    .toArray();
+}
