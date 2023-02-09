@@ -27,8 +27,7 @@ const Layout = ({ children }) => {
           flexDir={'column'}
           align="center"
           bgColor={'#f5f5f5'}
-          pt={4}
-          pb={4}
+          py={2}
         >
           {children}
         </Flex>

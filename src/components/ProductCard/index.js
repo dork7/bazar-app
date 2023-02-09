@@ -71,8 +71,10 @@ const ProductCard = (props) => {
         src={data.imageURL}
         alt={`Picture of ${data.name}`}
         width={120}
-        height={220}
+        height={120}
         layout="responsive"
+        // showThumbs={false}
+        style={{ objectFit: 'cover' }}
       />
 
       <Box p="6">

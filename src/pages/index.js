@@ -1,19 +1,17 @@
-import { Inter } from '@next/font/google';
-import Layout from '@/components/layout';
-import SearchBar from '@/components/SearchBar';
-import ProductSection from '@/components/ProductSection';
 import Hero from '@/components/Hero';
+import ProductSection from '@/components/ProductSection';
+import { getAllProducts } from '@/utils/api.utils';
+import { Inter } from '@next/font/google';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 const inter = Inter({ subsets: ['latin'] });
 
-export default function Home() {
-  const [products, setProducts] = useState([]);
-
+export default function Home(props) {
+  const { preFetchedProducts } = props;
+  const [products, setProducts] = useState(preFetchedProducts);
   const { data, error, isLoading } = useSWR('/api/products', (apiURL) =>
     fetch(apiURL).then((res) => res.json())
   );
-
   useEffect(() => {
     if (data) {
       setProducts(data.products);
@@ -24,8 +22,22 @@ export default function Home() {
   return (
     <>
       <Hero />
-
-      <ProductSection title={'Products'} products={products} />
+      <ProductSection
+        title={'Products'}
+        products={products}
+        isLoading={!preFetchedProducts && !data}
+      />
     </>
   );
+}
+
+export async function getStaticProps(context) {
+  const data = await getAllProducts();
+
+  return {
+    props: {
+      preFetchedProducts: data.products,
+    },
+    // revalidate: 10,
+  };
 }
