@@ -53,6 +53,15 @@ const SignUp = () => {
           'Content-Type': 'application/json',
         },
       });
+      if (!response.ok) {
+        return response.json().then((data) => {
+          notificationCtx.showNotification({
+            title: 'Error 😐',
+            message: data.message || 'Masla ho gya ha',
+            status: 'error',
+          });
+        });
+      }
 
       const data = await response.json();
       notificationCtx.showNotification({
@@ -60,8 +69,7 @@ const SignUp = () => {
         message: 'Ho gya, Mubarik ho',
         status: 'success',
       });
-      router.push(`/login?${emailRef.current.value}`);
-      // router.push(`/login`);
+      router.push(`/login?email=${emailRef.current.value}`);
     } catch (err) {
       console.log('err :>> ', err);
       notificationCtx.showNotification({

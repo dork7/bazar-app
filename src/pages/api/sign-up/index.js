@@ -1,8 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import formidable from 'formidable';
-import path from 'path';
-
 import {
   connectDataBase,
   getDocuments,
@@ -21,8 +18,13 @@ export default async function handler(req, res) {
 
   if (req.method === 'POST') {
     const body = req.body;
-
+    body.userId = nanoid(6);
+    const { email } = body;
     try {
+      const user = await getDocuments(client, 'users', { email });
+      if (user.length > 0) {
+        return res.status(500).json({ message: 'User Already exist' });
+      }
       await insertDocument(client, 'users', { ...body });
       res.status(200).json({ msg: 'Sign up success' });
     } catch (err) {
@@ -32,5 +34,4 @@ export default async function handler(req, res) {
   }
 
   client.close();
-  // res.status(200).json({ result });
 }
