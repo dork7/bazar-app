@@ -23,15 +23,21 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
       const productIds = await getStaticProductIds(client, 'products', {
-        genStaticPages: true,
+        genStaticPages: 'true',
       });
-      console.log('productIds :>> ', productIds);
-      res.status(200).json({ productIds });
+      const ids = productIds.flatMap((item) => {
+        return {
+          params: {
+            productId: item.productId,
+          },
+        };
+      });
+      res.status(200).json({ productIds: ids });
     } catch (err) {
+      console.log('err :>> ', err);
       res.status(500).json({ msg: 'unable to fetch data' });
     }
   }
 
   client.close();
-  // res.status(200).json({ result });
 }

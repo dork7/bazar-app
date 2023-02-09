@@ -6,11 +6,9 @@ import {
   Button,
   Divider,
   Flex,
-  ading,
-  HStack,
-  Stack,
-  Text,
   Heading,
+  HStack,
+  Text,
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import { BsCashCoin } from 'react-icons/bs';
@@ -18,7 +16,6 @@ import { GiReturnArrow, GiStorkDelivery } from 'react-icons/gi';
 import { GoLocation } from 'react-icons/go';
 import styles from './productDetail.module.css';
 const ProductDetail = (props) => {
-  // if (!props.productDetails) return 'loading';
   const { isNew, imageURL, name, price, rating, numReviews } =
     props?.productDetails ?? '';
 
@@ -122,16 +119,10 @@ export async function getStaticProps(context) {
 }
 
 export async function getStaticPaths() {
-  const productIds = await getStaticProductIds();
+  const { productIds } = await getStaticProductIds();
   console.log('productIds :>> ', productIds);
   return {
-    paths: [
-      {
-        params: {
-          productId: 'B4lZ3',
-        },
-      },
-    ],
+    paths: productIds,
     fallback: true,
   };
 }

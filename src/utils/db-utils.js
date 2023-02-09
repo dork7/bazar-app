@@ -22,7 +22,7 @@ export async function getStaticProductIds(client, collection, query) {
   const db = client.db();
   return await db
     .collection(collection)
-    .find({ ...query }, { productId: 1 })
+    .find({ ...query }, { productId: 1, _id: 1 })
     .sort({ _id: -1 })
     .toArray();
 }
