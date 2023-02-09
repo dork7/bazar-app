@@ -1,33 +1,27 @@
-import { useContext, useRef, useState } from 'react';
-import {
-  Flex,
-  Heading,
-  Input,
-  Button,
-  InputGroup,
-  Stack,
-  InputLeftElement,
-  chakra,
-  Box,
-  Link,
-  Avatar,
-  FormControl,
-  FormHelperText,
-  InputRightElement,
-} from '@chakra-ui/react';
-import { FaUserAlt, FaLock, FaMobile } from 'react-icons/fa';
 import NotificationContext from '@/store/NotificationContext';
-import { signUp } from '@/utils/api.utils';
-import { useRouter } from 'next/router';
 import UserContext from '@/store/UserContext';
+import {
+  Box,
+  Button,
+  chakra,
+  Flex,
+  FormControl,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  Link,
+  Stack,
+} from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { useContext, useRef, useState } from 'react';
+import { FaLock, FaUserAlt } from 'react-icons/fa';
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
-const CFaMobile = chakra(FaMobile);
 
 const Login = () => {
   const router = useRouter();
-  const userCTX = useContext(UserContext);
   const { query } = router;
 
   const [showPassword, setShowPassword] = useState(false);
@@ -72,7 +66,7 @@ const Login = () => {
         message: 'You are now logged in',
         status: 'success',
       });
-      userCTX.setUserInfo(data.user);
+      localStorage.setItem('user', JSON.stringify(data.user));
       router.push(`/`);
     } catch (err) {
       console.log('err :>> ', err);
