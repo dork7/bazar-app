@@ -23,6 +23,7 @@ const CFaLock = chakra(FaLock);
 const Login = () => {
   const router = useRouter();
   const { query } = router;
+  const userCTX = useContext(UserContext);
 
   const [showPassword, setShowPassword] = useState(false);
   const handleShowClick = () => setShowPassword(!showPassword);
@@ -66,7 +67,7 @@ const Login = () => {
         message: 'You are now logged in',
         status: 'success',
       });
-      localStorage.setItem('user', JSON.stringify(data.user));
+      userCTX.setUserLoggedIn(true);
       router.push(`/`);
     } catch (err) {
       console.log('err :>> ', err);

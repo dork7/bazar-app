@@ -15,6 +15,7 @@ import React, { useContext, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { FaIoxhost } from 'react-icons/fa';
 import NotificationContext from '@/store/NotificationContext';
+import UserContext from '@/store/UserContext';
 
 const AddProduct = () => {
   const imageRef = useRef();
@@ -25,8 +26,11 @@ const AddProduct = () => {
   const [rating, setRating] = React.useState('1');
   const [genStaticPages, setGentStaticPages] = React.useState(false);
   const notificationCtx = useContext(NotificationContext);
+  const userCTX = useContext(UserContext);
 
   const formSubmitted = async (e) => {
+    const { userId } = userCTX.getUserInfo();
+    console.log('user :>> ', userId);
     e.preventDefault();
     const imgFile = imageRef.current.files[0];
     const formData = new FormData();
@@ -36,7 +40,7 @@ const AddProduct = () => {
     formData.append('numOfReviews', numOfReviewsRef.current.value);
     formData.append('rating', rating);
     formData.append('genStaticPages', genStaticPages);
-    formData.append('userId', 'DUMMY ID');
+    formData.append('userId', userId);
 
     notificationCtx.showNotification({
       title: 'Adding product',

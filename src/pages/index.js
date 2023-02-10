@@ -21,7 +21,6 @@ export default function Home(props) {
     }
     return () => {};
   }, [data]);
-  console.log('userCTX :>> ', userCTX.user);
 
   return (
     <>
