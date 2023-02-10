@@ -11,17 +11,19 @@ import {
 import Logo from './Logo';
 import Image from 'next/image';
 import { FiShoppingCart, FiSearch } from 'react-icons/fi';
+import Search from '../SearchField/Search';
 const SearchBar = () => {
   return (
     // <Flex justify="space-around">
     <HStack gap={6} m={2}>
       <Logo />
-      <InputGroup>
+      <Search />
+      {/* <InputGroup>
         <Input placeholder="Search Item" borderRadius={'0px'} />
         <InputRightAddon borderRadius={'0px'} bgColor="mOrange">
           <FiSearch />
         </InputRightAddon>
-      </InputGroup>
+      </InputGroup> */}
       <FiShoppingCart size={'30px'} />
       <Image
         src="/assets/images/srchBarLogo.png"

@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Flex, Center, chakra } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Center,
+  chakra,
+  Input,
+  InputRightAddon,
+  InputGroup,
+} from '@chakra-ui/react';
 import axios from 'axios';
 
 // import { SearchIcon } from '@chakra-ui/icons';
 
 import SearchResults from './SearchResults';
+import { FiSearch } from 'react-icons/fi';
 
 const Search = () => {
   const [queryText, setQueryText] = useState('');
@@ -13,62 +22,41 @@ const Search = () => {
   const handleChange = (e) => setQueryText(e.target.value);
 
   useEffect(() => {
-    if (!queryText) {
-      setSearchResults([]);
-      return false;
-    }
-
-    (async () => {
-      const url = 'http://localhost:8000/search';
-
-      const { data } = await axios.get(url, {
-        params: {
-          title: queryText,
-        },
-      });
-
-      setSearchResults(data);
-    })();
+    // if (!queryText) {
+    //   setSearchResults([]);
+    //   return false;
+    // }
+    // (async () => {
+    //   console.log('object :>> ', queryText);
+    //   const url = `/api/products/${queryText}`;
+    //   const { data } = await fetch(url, {
+    //     method: 'GET',
+    //   });
+    //   //   setSearchResults(data);
+    // })();
   }, [queryText]);
 
   return (
     <Box
       sx={{
-        rounded: 'lg',
-        overflow: 'hidden',
         bg: 'transparent',
         shadow: 'lg',
-        maxW: '600px',
-        width: '90%',
-        mt: '1rem',
-        mx: 'auto',
+        width: '100%',
       }}
     >
-      <Flex pos="relative" align="strech">
-        <chakra.input
-          type=""
-          autoComplete="off"
-          autoCorrect="off"
-          spellCheck="false"
-          maxLength={64}
-          sx={{
-            w: '100%',
-            h: '68px',
-            pl: '68px',
-            fontWeight: 'medium',
-            outline: 0,
-          }}
-          placeholder="Search Movies"
+      <InputGroup>
+        <Input
+          placeholder="Search Item"
+          borderRadius={'0px'}
           value={queryText}
           onChange={handleChange}
         />
+        <InputRightAddon borderRadius={'0px'} bgColor="mOrange">
+          <FiSearch />
+        </InputRightAddon>
+      </InputGroup>
 
-        {/* <Center pos="absolute" left={7} h="68px">
-          <SearchIcon color="teal.500" boxSize="20px" />
-        </Center> */}
-      </Flex>
-
-      {queryText && (
+      {/* {queryText && (
         <Box maxH="70vh" p="0" overflowY="auto">
           <Box px={4}>
             <Box borderTopWidth="1px" pt={2} pb={4}>
@@ -76,7 +64,7 @@ const Search = () => {
             </Box>
           </Box>
         </Box>
-      )}
+      )} */}
     </Box>
   );
 };
