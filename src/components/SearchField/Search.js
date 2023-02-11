@@ -26,14 +26,14 @@ const Search = () => {
     //   setSearchResults([]);
     //   return false;
     // }
-    // (async () => {
-    //   console.log('object :>> ', queryText);
-    //   const url = `/api/products/${queryText}`;
-    //   const { data } = await fetch(url, {
-    //     method: 'GET',
-    //   });
-    //   //   setSearchResults(data);
-    // })();
+    (async () => {
+      console.log('object :>> ', queryText);
+      const url = `/api/search/${queryText}`;
+      const { data } = await fetch(url, {
+        method: 'GET',
+      });
+      //   setSearchResults(data);
+    })();
   }, [queryText]);
 
   return (
