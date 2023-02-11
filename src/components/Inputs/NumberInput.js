@@ -1,12 +1,14 @@
+import { useEffect } from "react";
+
 const {
   HStack,
   Button,
   Input,
   useNumberInput,
   Text,
-} = require('@chakra-ui/react');
+} = require("@chakra-ui/react");
 
-export function NumberInput({ title }) {
+export function NumberInput({ title, qtyRef }) {
   const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
     useNumberInput({
       step: 1,
@@ -20,11 +22,11 @@ export function NumberInput({ title }) {
 
   return (
     <HStack maxW="320px">
-      <Text color={'gray.500'} fontWeight={300} fontSize={'lg'}>
+      <Text color={"gray.500"} fontWeight={300} fontSize={"lg"}>
         {title}
       </Text>
       <Button {...dec}>-</Button>
-      <Input {...input} w={20} />
+      <Input {...input} w={20} ref={qtyRef} />
       <Button {...inc}>+</Button>
     </HStack>
   );

@@ -1,6 +1,7 @@
-import { NumberInput } from '@/components/Inputs/NumberInput';
-import { Rating } from '@/components/ProductCard';
-import { getProductById, getStaticProductIds } from '@/utils/api.utils';
+import { NumberInput } from "@/components/Inputs/NumberInput";
+import { Rating } from "@/components/ProductCard";
+import UserContext from "@/store/UserContext";
+import { getProductById, getStaticProductIds } from "@/utils/api.utils";
 import {
   Box,
   Button,
@@ -10,29 +11,32 @@ import {
   HStack,
   Spinner,
   Text,
-} from '@chakra-ui/react';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { BsCashCoin } from 'react-icons/bs';
-import { GiReturnArrow, GiStorkDelivery } from 'react-icons/gi';
-import { GoLocation } from 'react-icons/go';
-import useSWR from 'swr';
-import styles from './productDetail.module.css';
+} from "@chakra-ui/react";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { useContext, useEffect, useRef, useState } from "react";
+import { BsCashCoin } from "react-icons/bs";
+import { GiReturnArrow, GiStorkDelivery } from "react-icons/gi";
+import { GoLocation } from "react-icons/go";
+import useSWR from "swr";
+import styles from "./productDetail.module.css";
 const ProductDetail = (props) => {
-  // const { isNew, imageURL, name, price, rating, numReviews } =
-  //   props?.productDetails ?? '';
-
   const params = useRouter();
 
   const { productId } = params.query;
+  const userCTX = useContext(UserContext);
 
   const [productDetails, setProductDetails] = useState(props?.productDetails);
+  const quantityRef = useRef();
 
   const { data, error, isLoading } = useSWR(
     `/api/products/${productId}`,
     (apiURL) => fetch(apiURL).then((res) => res.json())
   );
+
+  const addToCart_handler = () => {
+    userCTX.addToCart({ productId, quantity: quantityRef.current.value });
+  };
 
   useEffect(() => {
     if (data) {
@@ -47,30 +51,30 @@ const ProductDetail = (props) => {
         gap={6}
         p={4}
         bg="white"
-        justify={'center'}
-        align={'center'}
+        justify={"center"}
+        align={"center"}
         wrap="wrap"
         h={500}
-        w={'70vw'}
+        w={"70vw"}
       >
-        <Spinner size={'xl'} />
+        <Spinner size={"xl"} />
       </Flex>
     );
   }
 
   return (
-    <Flex gap={6} p={4} bg="white" justify={'space-between'} wrap="wrap">
-      <Box h={400} display="flex" alignItems={'center'}>
+    <Flex gap={6} p={4} bg="white" justify={"space-between"} wrap="wrap">
+      <Box h={400} display="flex" alignItems={"center"}>
         <Image
           height={400}
           width={400}
           alt={productDetails?.name}
           src={productDetails?.imageURL}
-          style={{ objectFit: 'cover' }}
+          style={{ objectFit: "cover" }}
         />
       </Box>
-      <Box as={'header'} display={'flex'} flexDir={'column'} gap={4}>
-        <Heading lineHeight={1.1} fontWeight={600} fontSize={{ base: '2xl' }}>
+      <Box as={"header"} display={"flex"} flexDir={"column"} gap={4}>
+        <Heading lineHeight={1.1} fontWeight={600} fontSize={{ base: "2xl" }}>
           {productDetails?.name}
         </Heading>
         <Rating
@@ -80,23 +84,24 @@ const ProductDetail = (props) => {
           }}
         />
         <Divider />
-        <Text color={'mOrange'} fontWeight={300} fontSize={'2xl'}>
+        <Text color={"mOrange"} fontWeight={300} fontSize={"2xl"}>
           Rs {productDetails?.price}
         </Text>
         <Divider />
 
-        <NumberInput title={'Quantity'} />
+        <NumberInput title={"Quantity"} qtyRef={quantityRef} />
         <Button
-          rounded={'none'}
-          w={'full'}
+          rounded={"none"}
+          w={"full"}
           mt={8}
-          size={'lg'}
-          bg={'mOrange'}
-          color={'white'}
-          textTransform={'uppercase'}
+          size={"lg"}
+          bg={"mOrange"}
+          color={"white"}
+          textTransform={"uppercase"}
           _hover={{
-            boxShadow: 'lg',
+            boxShadow: "lg",
           }}
+          onClick={addToCart_handler}
         >
           Add to cart
         </Button>
@@ -104,34 +109,34 @@ const ProductDetail = (props) => {
       <Box
         bg="#f5f5f5"
         p={4}
-        display={'flex'}
-        flexDir={'column'}
+        display={"flex"}
+        flexDir={"column"}
         gap={4}
         borderRadius={8}
         // maxW={'30%'}
       >
-        <Heading fontWeight={200} fontSize={{ base: '2xl' }}>
+        <Heading fontWeight={200} fontSize={{ base: "2xl" }}>
           Delivery Address
         </Heading>
         <HStack className={styles.deliveryCard}>
-          <GoLocation />{' '}
-          <Text fontSize={{ base: 'sm' }}>
+          <GoLocation />{" "}
+          <Text fontSize={{ base: "sm" }}>
             Rawalpindi, House 09, Street 21, Sector 18
           </Text>
         </HStack>
         <HStack className={styles.deliveryCard}>
-          <GiStorkDelivery />{' '}
-          <Text fontSize={{ base: 'sm' }}>Standard Delivery</Text>
-          <Text fontSize={{ base: 'xs' }} color="gray" fontWeight={600}>
+          <GiStorkDelivery />{" "}
+          <Text fontSize={{ base: "sm" }}>Standard Delivery</Text>
+          <Text fontSize={{ base: "xs" }} color="gray" fontWeight={600}>
             Rs-100
           </Text>
         </HStack>
         <HStack className={styles.deliveryCard}>
-          <BsCashCoin /> <Text fontSize={{ base: 'sm' }}>Cash on Delivery</Text>
+          <BsCashCoin /> <Text fontSize={{ base: "sm" }}>Cash on Delivery</Text>
         </HStack>
         <HStack className={styles.deliveryCard}>
-          <GiReturnArrow />{' '}
-          <Text fontSize={{ base: 'sm' }}>7 Days Return Policy</Text>
+          <GiReturnArrow />{" "}
+          <Text fontSize={{ base: "sm" }}>7 Days Return Policy</Text>
         </HStack>
       </Box>
     </Flex>

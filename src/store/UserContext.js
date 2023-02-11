@@ -14,6 +14,7 @@ export function UserContextProvider(props) {
   function setUserInfoHandler(userInfo) {
     setUserInfo(userInfo);
     localStorage.setItem("user", JSON.stringify(userInfo));
+    clearCart();
   }
   function getUserInfoHandler() {
     return JSON.parse(localStorage.getItem("user"));
@@ -34,6 +35,26 @@ export function UserContextProvider(props) {
     setIsLoggedIn(isLoggedIn);
     return isLoggedIn;
   }
+
+  function addToCart(product) {
+    const cartItems = JSON.parse(localStorage.getItem("cart"));
+    const itemAlreadyExist = cartItems.findIndex(
+      (item) => item.productId === product.productId
+    );
+    if (itemAlreadyExist > -1) {
+      cartItems[itemAlreadyExist] = product;
+    } else {
+      cartItems.push(product);
+    }
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }
+  function getCartItem() {
+    return JSON.parse(localStorage.getItem("cart"));
+  }
+  function clearCart() {
+    localStorage.setItem("cart", JSON.stringify([]));
+  }
+
   const context = {
     isLoggedIn,
     user: userInfo,
@@ -44,6 +65,9 @@ export function UserContextProvider(props) {
     setUserLoggedIn,
     isUserLoggedIn,
     clearUserInfo,
+    addToCart,
+    getCartItem,
+    clearCart,
   };
 
   return (
