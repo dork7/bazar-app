@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from "react";
 
 const UserContext = createContext({
   notification: null,
@@ -13,13 +13,13 @@ export function UserContextProvider(props) {
 
   function setUserInfoHandler(userInfo) {
     setUserInfo(userInfo);
-    localStorage.setItem('user', JSON.stringify(data.user));
+    localStorage.setItem("user", JSON.stringify(userInfo));
   }
   function getUserInfoHandler() {
-    return JSON.parse(localStorage.getItem('user'));
+    return JSON.parse(localStorage.getItem("user"));
   }
   function clearUserInfo() {
-    localStorage.setItem('user', JSON.stringify({}));
+    localStorage.setItem("user", JSON.stringify({}));
     setUserLoggedIn(false);
   }
   function setCartInfoHandler(cartInfo) {
@@ -29,7 +29,7 @@ export function UserContextProvider(props) {
     setIsLoggedIn(value);
   }
   function isUserLoggedIn() {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem("user"));
     const isLoggedIn = user && Object.keys(user).length > 0;
     setIsLoggedIn(isLoggedIn);
     return isLoggedIn;

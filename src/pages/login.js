@@ -1,5 +1,5 @@
-import NotificationContext from '@/store/NotificationContext';
-import UserContext from '@/store/UserContext';
+import NotificationContext from "@/store/NotificationContext";
+import UserContext from "@/store/UserContext";
 import {
   Box,
   Button,
@@ -12,10 +12,10 @@ import {
   InputRightElement,
   Link,
   Stack,
-} from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import { useContext, useRef, useState } from 'react';
-import { FaLock, FaUserAlt } from 'react-icons/fa';
+} from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { useContext, useRef, useState } from "react";
+import { FaLock, FaUserAlt } from "react-icons/fa";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -34,9 +34,9 @@ const Login = () => {
   const formSubmit = async (e) => {
     e.preventDefault();
     notificationCtx.showNotification({
-      title: 'Logging in 😁',
-      message: 'Wait please',
-      status: 'pending',
+      title: "Logging in 😁",
+      message: "Wait please",
+      status: "pending",
     });
     const formData = {
       email: emailRef.current.value,
@@ -44,37 +44,38 @@ const Login = () => {
     };
     try {
       const response = await fetch(`/api/login`, {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify(formData),
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
 
       if (!response.ok) {
         return response.json().then((data) => {
           notificationCtx.showNotification({
-            title: 'Error 😐',
-            message: data.message || 'Masla ho gya ha',
-            status: 'error',
+            title: "Error 😐",
+            message: data.message || "Masla ho gya ha",
+            status: "error",
           });
         });
       }
 
-      const data = await response.json();
-      notificationCtx.showNotification({
-        title: 'Success 😍',
-        message: 'You are now logged in',
-        status: 'success',
-      });
+      const loginData = await response.json();
+      userCTX.setUserInfo(loginData.user);
       userCTX.setUserLoggedIn(true);
+      notificationCtx.showNotification({
+        title: "Success 😍",
+        message: "You are now logged in",
+        status: "success",
+      });
       router.push(`/`);
     } catch (err) {
-      console.log('err :>> ', err);
+      console.log("err :>> ", err);
       notificationCtx.showNotification({
-        title: 'Error 😐',
-        message: err.message || 'Masla ho gya ha',
-        status: 'error',
+        title: "Error 😐",
+        message: err.message || "Masla ho gya ha",
+        status: "error",
       });
     }
   };
@@ -92,13 +93,13 @@ const Login = () => {
           p={10}
           mb={12}
         >
-          <Box minW={{ base: '90%', md: '468px' }}>
+          <Box minW={{ base: "90%", md: "468px" }}>
             <Box
               fontSize="2xl"
               fontWeight="semibold"
               as="h2"
               // lineHeight="tight"
-              color={'gray.500'}
+              color={"gray.500"}
               isTruncated
             >
               Welcome to Daraz! Sign up
@@ -112,7 +113,7 @@ const Login = () => {
                   <Input
                     type="email"
                     placeholder="Email address"
-                    defaultValue={query.email ?? ''}
+                    defaultValue={query.email ?? ""}
                     ref={emailRef}
                   />
                 </InputGroup>
@@ -124,13 +125,13 @@ const Login = () => {
                     <CFaLock color="gray.300" />
                   </InputLeftElement>
                   <Input
-                    type={showPassword ? 'text' : 'password'}
+                    type={showPassword ? "text" : "password"}
                     placeholder="Password"
                     ref={passwordRef}
                   />
                   <InputRightElement width="4.5rem">
                     <Button h="1.75rem" size="sm" onClick={handleShowClick}>
-                      {showPassword ? 'Hide' : 'Show'}
+                      {showPassword ? "Hide" : "Show"}
                     </Button>
                   </InputRightElement>
                 </InputGroup>
@@ -145,7 +146,7 @@ const Login = () => {
               type="submit"
               bgColor="mOrange"
               width="full"
-              _hover={{ color: 'white' }}
+              _hover={{ color: "white" }}
             >
               Sign in
             </Button>

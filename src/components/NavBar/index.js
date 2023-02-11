@@ -1,14 +1,14 @@
-import UserContext from '@/store/UserContext';
-import { Box, Flex, HStack, Stack, Text } from '@chakra-ui/layout';
-import Link from 'next/link';
-import React, { useContext, useEffect, useState } from 'react';
-import styles from './nav.module.css';
+import UserContext from "@/store/UserContext";
+import { Box, Flex, HStack, Stack, Text } from "@chakra-ui/layout";
+import Link from "next/link";
+import React, { useContext, useEffect, useState } from "react";
+import styles from "./nav.module.css";
 const NavBar = () => {
   const navItems = [
-    { id: 1, title: 'EXPLORE STORE', ref: '/' },
+    { id: 1, title: "EXPLORE STORE", ref: "/" },
     // { id: 2, title: 'ADD PRODUCT', ref: '/addProduct' },
-    { id: 3, title: 'LOGIN', ref: '/login' },
-    { id: 4, title: 'SIGN UP', ref: '/sign-up' },
+    { id: 3, title: "LOGIN", ref: "/login" },
+    { id: 4, title: "SIGN UP", ref: "/sign-up" },
   ];
   const userCTX = useContext(UserContext);
 
@@ -16,11 +16,13 @@ const NavBar = () => {
   const [navBarItems, setNavBarItems] = useState(navItems);
 
   useEffect(() => {
+    console.log(`userCTX.isUserLoggedIn()`, userCTX.isUserLoggedIn());
+    console.log(`userCTX.isLoggedIn`, userCTX.isLoggedIn);
     if (userCTX.isUserLoggedIn()) {
       setNavBarItems([
-        { id: 1, title: 'EXPLORE STORE', ref: '/' },
-        { id: 2, title: 'ADD PRODUCT', ref: '/addProduct' },
-        { id: 3, title: 'LOGOUT', ref: '/logout' },
+        { id: 1, title: "EXPLORE STORE", ref: "/" },
+        { id: 2, title: "ADD PRODUCT", ref: "/addProduct" },
+        { id: 3, title: "LOGOUT", ref: "/logout" },
       ]);
       setReRenderer(!reRenderer);
     } else {
@@ -45,10 +47,10 @@ const NavBar = () => {
             onClick={() => setSelected(item.id)}
           >
             <Text
-              variant={selectedLink !== item.id ? 'navText' : 'navTextSelected'}
+              variant={selectedLink !== item.id ? "navText" : "navTextSelected"}
               fontSize="sm"
             >
-              {' '}
+              {" "}
               {item.title}
             </Text>
           </Link>
