@@ -44,7 +44,6 @@ const CartDrawer = () => {
   }, [isOpen]);
 
   const removeItem = (productId) => {
-    console.log(`productId`, productId);
     userCTX.removeCartItem(productId);
     getItemFromContext();
   };
@@ -94,6 +93,7 @@ const CartDrawer = () => {
                     colorScheme="black"
                     variant="outline"
                     onClick={onClose}
+                    isDisabled={cartList.length === 0}
                   >
                     Checkout
                   </Button>
