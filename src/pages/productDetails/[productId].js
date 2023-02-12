@@ -35,7 +35,10 @@ const ProductDetail = (props) => {
   );
 
   const addToCart_handler = () => {
-    userCTX.addToCart({ productId, quantity: quantityRef.current.value });
+    userCTX.addToCart({
+      ...productDetails,
+      quantity: quantityRef.current.value,
+    });
   };
 
   useEffect(() => {

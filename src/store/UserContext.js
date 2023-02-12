@@ -37,7 +37,7 @@ export function UserContextProvider(props) {
   }
 
   function addToCart(product) {
-    const cartItems = JSON.parse(localStorage.getItem("cart"));
+    const cartItems = JSON.parse(localStorage.getItem("cart")) ?? [];
     const itemAlreadyExist = cartItems.findIndex(
       (item) => item.productId === product.productId
     );
@@ -50,6 +50,19 @@ export function UserContextProvider(props) {
   }
   function getCartItem() {
     return JSON.parse(localStorage.getItem("cart"));
+  }
+  function removeCartItem(productId) {
+    const cartItems = JSON.parse(localStorage.getItem("cart")) ?? [];
+    const itemAlreadyExist = cartItems.findIndex(
+      (item) => item.productId === productId
+    );
+    if (itemAlreadyExist > -1) {
+      cartItems.splice(itemAlreadyExist, 1);
+    }
+    //  else {
+    //   cartItems.push(product);
+    // }
+    localStorage.setItem("cart", JSON.stringify(cartItems));
   }
   function clearCart() {
     localStorage.setItem("cart", JSON.stringify([]));
@@ -68,6 +81,7 @@ export function UserContextProvider(props) {
     addToCart,
     getCartItem,
     clearCart,
+    removeCartItem,
   };
 
   return (

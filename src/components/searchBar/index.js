@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FiShoppingCart } from "react-icons/fi";
+import CartDrawer from "../CartDrawer";
 import Search from "../SearchField/Search";
 const SearchBar = () => {
   return (
@@ -18,7 +19,7 @@ const SearchBar = () => {
       </Link>
       <Search />
 
-      <FiShoppingCart size={"30px"} />
+      <CartDrawer />
       <Image
         src="/assets/images/srchBarLogo.png"
         width={120}
