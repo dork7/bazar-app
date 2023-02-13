@@ -8,9 +8,6 @@ const Logout = () => {
   const userCTX = useContext(UserContext);
 
   // localStorage.setItem("user", JSON.stringify({}));
-  userCTX.clearUserInfo();
-  userCTX.clearCart();
-  router.push("/");
 
   useEffect(() => {
     (() => {
@@ -18,6 +15,9 @@ const Logout = () => {
         method: "POST",
       });
     })();
+    userCTX.clearUserInfo();
+    userCTX.clearCart();
+    router.push("/");
   }, []);
 
   return (

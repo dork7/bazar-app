@@ -203,7 +203,7 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
   const { productIds } = await getStaticProductIds();
-  console.log(`productIds`, productIds);
+  console.log(`productIds for static page generation`, productIds);
   return {
     paths: productIds,
     fallback: true,

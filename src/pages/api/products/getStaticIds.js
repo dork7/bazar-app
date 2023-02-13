@@ -16,7 +16,6 @@ export default async function handler(req, res) {
       const productIds = await getStaticProductIds(client, "products", {
         genStaticPages: "true",
       });
-      console.log(`productIds in route`, productIds);
       const ids = productIds.flatMap((item) => {
         return {
           params: {
@@ -24,7 +23,6 @@ export default async function handler(req, res) {
           },
         };
       });
-      console.log(`ids ====>`, ids);
       res.status(200).json({ productIds: ids });
     } catch (err) {
       console.log("err :>> ", err);
