@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     const { userId } = req.query;
     try {
       const user = await getUserData(client, "users", userId);
-      res.status(200).json(user);
+      res.status(200).json(user[0]);
     } catch (err) {
       console.log(`err`, err);
       res.status(500).json({ msg: "unable to fetch data" });

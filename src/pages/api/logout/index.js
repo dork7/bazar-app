@@ -3,7 +3,10 @@
 export default function handler(req, res) {
   if (req.method === "POST") {
     console.log("logginout");
-    res.setHeader("Set-Cookie", "userId=deleted;  ");
+    res.setHeader(
+      "set-cookie",
+      `userId=deleted; path=/; samesite=lax; httponly;`
+    );
     res.send({});
   } else {
     throw new NotFoundError();

@@ -15,7 +15,7 @@ const ItemCards = (props) => {
     <Box
       bg={useColorModeValue("white", "gray.800")}
       //   maxW="200"
-      maxH="250"
+      //   maxH="250"
       shadow="xl"
       py={2}
       m={2}
@@ -45,7 +45,7 @@ const ItemCards = (props) => {
 
       <Box p="6">
         <Flex
-          mt="1"
+          mt="4"
           justifyContent="space-between"
           alignContent="center"
           flexDir={"column"}

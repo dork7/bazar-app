@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext, useRef, useState } from "react";
 import {
   Flex,
   Heading,
@@ -14,11 +14,11 @@ import {
   FormControl,
   FormHelperText,
   InputRightElement,
-} from '@chakra-ui/react';
-import { FaUserAlt, FaLock, FaMobile } from 'react-icons/fa';
-import NotificationContext from '@/store/NotificationContext';
-import { signUp } from '@/utils/api.utils';
-import { useRouter } from 'next/router';
+} from "@chakra-ui/react";
+import { FaUserAlt, FaLock, FaMobile } from "react-icons/fa";
+import NotificationContext from "@/store/NotificationContext";
+import { signUp } from "@/utils/api.utils";
+import { useRouter } from "next/router";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -31,51 +31,53 @@ const SignUp = () => {
   const emailRef = useRef();
   const phoneRef = useRef();
   const passwordRef = useRef();
+  const nameRef = useRef();
   const notificationCtx = useContext(NotificationContext);
 
   const formSubmit = async (e) => {
     e.preventDefault();
     notificationCtx.showNotification({
-      title: 'Signing up 😁',
-      message: 'Wait please',
-      status: 'pending',
+      title: "Signing up 😁",
+      message: "Wait please",
+      status: "pending",
     });
     const formData = {
       email: emailRef.current.value,
+      name: nameRef.current.value,
       phone: phoneRef.current.value,
       password: passwordRef.current.value,
     };
     try {
       const response = await fetch(`/api/sign-up`, {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify(formData),
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
       if (!response.ok) {
         return response.json().then((data) => {
           notificationCtx.showNotification({
-            title: 'Error 😐',
-            message: data.message || 'Masla ho gya ha',
-            status: 'error',
+            title: "Error 😐",
+            message: data.message || "Masla ho gya ha",
+            status: "error",
           });
         });
       }
 
       const data = await response.json();
       notificationCtx.showNotification({
-        title: 'Success 😍',
-        message: 'Ho gya, Mubarik ho',
-        status: 'success',
+        title: "Success 😍",
+        message: "Ho gya, Mubarik ho",
+        status: "success",
       });
       router.push(`/login?email=${emailRef.current.value}`);
     } catch (err) {
-      console.log('err :>> ', err);
+      console.log("err :>> ", err);
       notificationCtx.showNotification({
-        title: 'Error 😐',
-        message: err.message || 'Masla ho gya ha',
-        status: 'error',
+        title: "Error 😐",
+        message: err.message || "Masla ho gya ha",
+        status: "error",
       });
     }
   };
@@ -93,13 +95,13 @@ const SignUp = () => {
           p={10}
           mb={12}
         >
-          <Box minW={{ base: '90%', md: '468px' }}>
+          <Box minW={{ base: "90%", md: "468px" }}>
             <Box
               fontSize="2xl"
               fontWeight="semibold"
               as="h2"
               // lineHeight="tight"
-              color={'gray.500'}
+              color={"gray.500"}
               isTruncated
             >
               Welcome to Daraz! Sign up
@@ -120,6 +122,14 @@ const SignUp = () => {
               <FormControl isRequired>
                 <InputGroup>
                   <InputLeftElement pointerEvents="none">
+                    <CFaUserAlt color="gray.300" />
+                  </InputLeftElement>
+                  <Input type="text" placeholder="Full Name" ref={nameRef} />
+                </InputGroup>
+              </FormControl>
+              <FormControl isRequired>
+                <InputGroup>
+                  <InputLeftElement pointerEvents="none">
                     <CFaMobile color="gray.300" />
                   </InputLeftElement>
                   <Input placeholder="Phone Number" ref={phoneRef} />
@@ -131,13 +141,13 @@ const SignUp = () => {
                     <CFaLock color="gray.300" />
                   </InputLeftElement>
                   <Input
-                    type={showPassword ? 'text' : 'password'}
+                    type={showPassword ? "text" : "password"}
                     placeholder="Password"
                     ref={passwordRef}
                   />
                   <InputRightElement width="4.5rem">
                     <Button h="1.75rem" size="sm" onClick={handleShowClick}>
-                      {showPassword ? 'Hide' : 'Show'}
+                      {showPassword ? "Hide" : "Show"}
                     </Button>
                   </InputRightElement>
                 </InputGroup>
@@ -152,7 +162,7 @@ const SignUp = () => {
               type="submit"
               bgColor="mOrange"
               width="full"
-              _hover={{ color: 'white' }}
+              _hover={{ color: "white" }}
             >
               Sign up
             </Button>

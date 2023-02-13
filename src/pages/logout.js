@@ -7,7 +7,7 @@ const Logout = () => {
   const router = useRouter();
   const userCTX = useContext(UserContext);
 
-  localStorage.setItem("user", JSON.stringify({}));
+  // localStorage.setItem("user", JSON.stringify({}));
   userCTX.clearUserInfo();
   userCTX.clearCart();
   router.push("/");
