@@ -67,15 +67,17 @@ const CartDrawer = () => {
             {!cartList || cartList.length === 0 ? (
               <Center pt={"4rem"}>Cart is empty</Center>
             ) : (
-              cartList.map((cartItem) => {
-                return <ItemCards item={cartItem} {...{ removeItem }} />;
+              cartList.map((cartItem, idx) => {
+                return (
+                  <ItemCards key={idx} item={cartItem} {...{ removeItem }} />
+                );
               })
             )}
           </DrawerBody>
 
           <DrawerFooter>
             <Stack w={"100%"}>
-              <Text fontSize="md" fontSize="md" fontWeight="semibold" as="h6">
+              <Text fontSize="md" fontSize="md" as="h6">
                 Total Amount {totalPrice}
               </Text>
               <Divider />

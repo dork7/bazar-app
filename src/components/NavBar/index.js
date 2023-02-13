@@ -16,8 +16,6 @@ const NavBar = () => {
   const [navBarItems, setNavBarItems] = useState(navItems);
 
   useEffect(() => {
-    // console.log(`userCTX.isUserLoggedIn()`, userCTX.isUserLoggedIn());
-    // console.log(`userCTX.isLoggedIn`, userCTX.isLoggedIn);
     if (userCTX.isUserLoggedIn()) {
       setNavBarItems([
         { id: 1, title: "EXPLORE STORE", ref: "/" },

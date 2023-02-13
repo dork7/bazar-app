@@ -17,6 +17,9 @@ export default async function handler(req, res) {
       const body = req.body;
       console.log(`body`, body);
       console.log(`req.cookies.userId`, req.cookies.userId);
+      if (!req.cookies.userId || req.cookies.userId === "deleted") {
+        res.status(500).json({ msg: "Unauthorized user" });
+      }
       body.userId = req.cookies.userId;
       body.orderId = nanoid(5);
       const order = await insertDocument(client, "orders", { ...body });

@@ -17,7 +17,6 @@ import React, { useContext, useEffect, useState } from "react";
 const CheckOut = (props) => {
   const { userData, error } = props;
 
-  if (error) return "Error...";
   const userCTX = useContext(UserContext);
   const notificationCtx = useContext(NotificationContext);
 
@@ -79,6 +78,8 @@ const CheckOut = (props) => {
       });
     }
   };
+  if (error) return "Error...";
+
   return (
     <Flex
       w="60%"
@@ -164,7 +165,7 @@ const CheckOut = (props) => {
 export async function getServerSideProps(context) {
   const { params, req, res } = context;
   const userId = req.cookies.userId;
-  if (!userId) {
+  if (userId === "deleted") {
     res.setHeader("location", "/logout");
     res.statusCode = 302;
     res.end();

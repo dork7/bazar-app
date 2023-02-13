@@ -3,6 +3,11 @@ import { Rating } from "@/components/ProductCard";
 import UserContext from "@/store/UserContext";
 import { getProductById, getStaticProductIds } from "@/utils/api.utils";
 import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
   Box,
   Button,
   Divider,
@@ -10,8 +15,12 @@ import {
   Heading,
   HStack,
   Spinner,
+  Stack,
+  StackDivider,
   Text,
 } from "@chakra-ui/react";
+import { Card, CardBody, CardHeader } from "@chakra-ui/card";
+
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -20,6 +29,7 @@ import { GiReturnArrow, GiStorkDelivery } from "react-icons/gi";
 import { GoLocation } from "react-icons/go";
 import useSWR from "swr";
 import styles from "./productDetail.module.css";
+
 const ProductDetail = (props) => {
   const params = useRouter();
 
@@ -27,6 +37,7 @@ const ProductDetail = (props) => {
   const userCTX = useContext(UserContext);
 
   const [productDetails, setProductDetails] = useState(props?.productDetails);
+  // const [userLoggedIn, setIserLoggedIn] = useState(initialState)
   const quantityRef = useRef();
 
   const { data, error, isLoading } = useSWR(
@@ -66,83 +77,104 @@ const ProductDetail = (props) => {
   }
 
   return (
-    <Flex gap={6} p={4} bg="white" justify={"space-between"} wrap="wrap">
-      <Box h={400} display="flex" alignItems={"center"}>
-        <Image
-          height={400}
-          width={400}
-          alt={productDetails?.name}
-          src={productDetails?.imageURL}
-          style={{ objectFit: "cover" }}
-        />
-      </Box>
-      <Box as={"header"} display={"flex"} flexDir={"column"} gap={4}>
-        <Heading lineHeight={1.1} fontWeight={600} fontSize={{ base: "2xl" }}>
-          {productDetails?.name}
-        </Heading>
-        <Rating
-          {...{
-            rating: productDetails?.rating,
-            numReviews: productDetails?.numReviews,
-          }}
-        />
-        <Divider />
-        <Text color={"mOrange"} fontWeight={300} fontSize={"2xl"}>
-          Rs {productDetails?.price}
-        </Text>
-        <Divider />
+    <>
+      <Flex gap={6} p={4} bg="white" justify={"space-between"} wrap="wrap">
+        <Box h={400} display="flex" alignItems={"center"}>
+          <Image
+            height={400}
+            width={400}
+            alt={productDetails?.name}
+            src={productDetails?.imageURL}
+            style={{ objectFit: "cover" }}
+          />
+        </Box>
+        <Box as={"header"} display={"flex"} flexDir={"column"} gap={4}>
+          <Heading lineHeight={1.1} fontWeight={600} fontSize={{ base: "2xl" }}>
+            {productDetails?.name}
+          </Heading>
+          <Rating
+            {...{
+              rating: productDetails?.rating,
+              numReviews: productDetails?.numReviews,
+            }}
+          />
+          <Divider />
+          <Text color={"mOrange"} fontWeight={300} fontSize={"2xl"}>
+            Rs {productDetails?.price}
+          </Text>
+          <Divider />
 
-        <NumberInput title={"Quantity"} qtyRef={quantityRef} />
-        <Button
-          rounded={"none"}
-          w={"full"}
-          mt={8}
-          size={"lg"}
-          bg={"mOrange"}
-          color={"white"}
-          textTransform={"uppercase"}
-          _hover={{
-            boxShadow: "lg",
-          }}
-          onClick={addToCart_handler}
+          <NumberInput title={"Quantity"} qtyRef={quantityRef} />
+          <Button
+            rounded={"none"}
+            w={"full"}
+            mt={8}
+            size={"lg"}
+            bg={"mOrange"}
+            color={"white"}
+            textTransform={"uppercase"}
+            _hover={{
+              boxShadow: "lg",
+            }}
+            onClick={addToCart_handler}
+            isDisabled={!userCTX.isLoggedIn}
+          >
+            Add to cart
+          </Button>
+        </Box>
+        <Box
+          bg="#f5f5f5"
+          p={4}
+          display={"flex"}
+          flexDir={"column"}
+          gap={4}
+          borderRadius={8}
+          // maxW={'30%'}
         >
-          Add to cart
-        </Button>
+          <Heading fontWeight={200} fontSize={{ base: "2xl" }}>
+            Delivery Address
+          </Heading>
+          <HStack className={styles.deliveryCard}>
+            <GoLocation />{" "}
+            <Text fontSize={{ base: "sm" }}>
+              Rawalpindi, House 09, Street 21, Sector 18
+            </Text>
+          </HStack>
+          <HStack className={styles.deliveryCard}>
+            <GiStorkDelivery />{" "}
+            <Text fontSize={{ base: "sm" }}>Standard Delivery</Text>
+            <Text fontSize={{ base: "xs" }} color="gray" fontWeight={600}>
+              Rs-100
+            </Text>
+          </HStack>
+          <HStack className={styles.deliveryCard}>
+            <BsCashCoin />{" "}
+            <Text fontSize={{ base: "sm" }}>Cash on Delivery</Text>
+          </HStack>
+          <HStack className={styles.deliveryCard}>
+            <GiReturnArrow />{" "}
+            <Text fontSize={{ base: "sm" }}>7 Days Return Policy</Text>
+          </HStack>
+        </Box>
+      </Flex>
+      <Box w={"60vw"} py={4}>
+        <Card>
+          <CardHeader>
+            <Heading size="md">Product Description</Heading>
+          </CardHeader>
+
+          <CardBody>
+            <Stack divider={<StackDivider />} spacing="4">
+              <Box>
+                <Text pt="2" fontSize="sm">
+                  {productDetails?.description}
+                </Text>
+              </Box>
+            </Stack>
+          </CardBody>
+        </Card>
       </Box>
-      <Box
-        bg="#f5f5f5"
-        p={4}
-        display={"flex"}
-        flexDir={"column"}
-        gap={4}
-        borderRadius={8}
-        // maxW={'30%'}
-      >
-        <Heading fontWeight={200} fontSize={{ base: "2xl" }}>
-          Delivery Address
-        </Heading>
-        <HStack className={styles.deliveryCard}>
-          <GoLocation />{" "}
-          <Text fontSize={{ base: "sm" }}>
-            Rawalpindi, House 09, Street 21, Sector 18
-          </Text>
-        </HStack>
-        <HStack className={styles.deliveryCard}>
-          <GiStorkDelivery />{" "}
-          <Text fontSize={{ base: "sm" }}>Standard Delivery</Text>
-          <Text fontSize={{ base: "xs" }} color="gray" fontWeight={600}>
-            Rs-100
-          </Text>
-        </HStack>
-        <HStack className={styles.deliveryCard}>
-          <BsCashCoin /> <Text fontSize={{ base: "sm" }}>Cash on Delivery</Text>
-        </HStack>
-        <HStack className={styles.deliveryCard}>
-          <GiReturnArrow />{" "}
-          <Text fontSize={{ base: "sm" }}>7 Days Return Policy</Text>
-        </HStack>
-      </Box>
-    </Flex>
+    </>
   );
 };
 
@@ -160,6 +192,7 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
   const { productIds } = await getStaticProductIds();
+  console.log(`productIds`, productIds);
   return {
     paths: productIds,
     fallback: true,

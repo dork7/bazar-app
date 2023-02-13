@@ -63,7 +63,6 @@ const ItemCards = (props) => {
             fontSize="sm"
             color={useColorModeValue("gray.800", "white")}
             fontSize="md"
-            fontWeight="semibold"
             as="h6"
           >
             <Box as="span" color={"gray.600"} fontSize="md">

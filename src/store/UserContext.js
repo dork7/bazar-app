@@ -65,6 +65,7 @@ export function UserContextProvider(props) {
     localStorage.setItem("cart", JSON.stringify(cartItems));
   }
   function clearCart() {
+    setIsLoggedIn(false);
     localStorage.setItem("cart", JSON.stringify([]));
   }
 
