@@ -1,44 +1,33 @@
-import React from 'react';
-
-import Image from 'next/image';
-import {
-  Flex,
-  Circle,
-  Box,
-  Badge,
-  useColorModeValue,
-  Icon,
-  chakra,
-  Tooltip,
-} from '@chakra-ui/react';
-import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
-import { FiShoppingCart } from 'react-icons/fi';
-import Link from 'next/link';
+import { Badge, Box, Flex, useColorModeValue } from "@chakra-ui/react";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 
 export function Rating({ rating, numReviews, ...props }) {
   return (
     <>
       <Flex {...props}>
         {Array(5)
-          .fill('')
+          .fill("")
           .map((_, i) => {
             const roundedRating = Math.round(rating * 2) / 2;
             if (roundedRating - i >= 1) {
               return (
                 <BsStarFill
                   key={i}
-                  style={{ marginLeft: '1' }}
-                  color={i < rating ? 'teal.500' : 'gray.300'}
+                  style={{ marginLeft: "1" }}
+                  color={i < rating ? "teal.500" : "gray.300"}
                 />
               );
             }
             if (roundedRating - i === 0.5) {
-              return <BsStarHalf key={i} style={{ marginLeft: '1' }} />;
+              return <BsStarHalf key={i} style={{ marginLeft: "1" }} />;
             }
-            return <BsStar key={i} style={{ marginLeft: '1' }} />;
+            return <BsStar key={i} style={{ marginLeft: "1" }} />;
           })}
         <Box as="span" ml="2" color="gray.600" fontSize="sm">
-          {numReviews} review{numReviews > 1 && 's'}
+          {numReviews} review{numReviews > 1 && "s"}
         </Box>
       </Flex>
     </>
@@ -50,20 +39,20 @@ const ProductCard = (props) => {
   return (
     <Link href={`/productDetails/${data.productId}`}>
       <Box
-        bg={useColorModeValue('white', 'gray.800')}
+        bg={useColorModeValue("white", "gray.800")}
         maxW="200"
         maxH="250"
         shadow="lg"
         //   position="relative"
         _hover={{
-          background: 'white',
-          color: 'mOrange',
+          background: "white",
+          color: "mOrange",
         }}
       >
         <Box
           h={120}
           display="flex"
-          alignItems={'center'}
+          alignItems={"center"}
           justifyContent="center"
         >
           <Image
@@ -73,7 +62,7 @@ const ProductCard = (props) => {
             height={120}
             layout="responsive"
             // showThumbs={false}
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit: "cover" }}
           />
         </Box>
 
@@ -89,7 +78,7 @@ const ProductCard = (props) => {
             mt="1"
             justifyContent="space-between"
             alignContent="center"
-            flexDir={'column'}
+            flexDir={"column"}
           >
             <Box
               fontSize="md"
@@ -100,8 +89,8 @@ const ProductCard = (props) => {
             >
               {data.name}
             </Box>
-            <Box fontSize="md" color={useColorModeValue('gray.800', 'white')}>
-              <Box as="span" color={'gray.600'} fontSize="md">
+            <Box fontSize="md" color={useColorModeValue("gray.800", "white")}>
+              <Box as="span" color={"gray.600"} fontSize="md">
                 Rs.
               </Box>
               {data.price.toFixed(2)}

@@ -2,12 +2,9 @@ import { NumberInput } from "@/components/Inputs/NumberInput";
 import { Rating } from "@/components/ProductCard";
 import UserContext from "@/store/UserContext";
 import { getProductById, getStaticProductIds } from "@/utils/api.utils";
+import { Card, CardBody, CardHeader } from "@chakra-ui/card";
 import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
+  Badge,
   Box,
   Button,
   Divider,
@@ -19,8 +16,6 @@ import {
   StackDivider,
   Text,
 } from "@chakra-ui/react";
-import { Card, CardBody, CardHeader } from "@chakra-ui/card";
-
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -29,6 +24,17 @@ import { GiReturnArrow, GiStorkDelivery } from "react-icons/gi";
 import { GoLocation } from "react-icons/go";
 import useSWR from "swr";
 import styles from "./productDetail.module.css";
+
+const dummytext = `
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse hendrerit, sapien et convallis consectetur, orci magna convallis libero, eget gravida sapien orci sit amet arcu. Nulla elementum purus tortor, eu pulvinar nunc molestie eu. Nulla ut eleifend eros. Phasellus ultrices sem nibh, sed accumsan leo efficitur eu. Morbi tellus elit, porttitor sit amet hendrerit vel, varius sit amet metus. In sit amet interdum mi, ac dignissim arcu. Sed ornare massa eget leo venenatis, ac gravida dui mollis. Quisque lectus quam, ornare eget molestie id, feugiat auctor nisl.
+
+Duis pulvinar pulvinar eros, fringilla semper justo vestibulum eget. Integer et ex tempor, laoreet dui et, pretium purus. Etiam hendrerit tortor in justo volutpat, quis cursus lectus hendrerit. Sed tincidunt mauris id lacus pellentesque, in luctus odio ultricies. Ut sit amet eros nunc. Aenean fringilla tellus non pellentesque dignissim. Fusce tempor placerat libero, ac sollicitudin elit vulputate ac. Donec et neque at erat hendrerit fringilla. Proin ullamcorper enim ac mauris sollicitudin gravida. Praesent vitae magna purus. Suspendisse pretium est ac ante lobortis laoreet. Curabitur sed dolor dui. Mauris massa tortor, feugiat id lobortis at, egestas eget justo.
+
+Proin et commodo orci. Etiam mollis semper ante non dictum. Mauris quis orci pulvinar, porta ex in, blandit odio. Morbi feugiat lacus placerat magna finibus, nec ultricies neque congue. Vestibulum blandit lorem ac enim sagittis, quis vulputate enim mollis. Vestibulum imperdiet nisl ac nunc convallis, ac finibus mauris placerat. Sed at pretium sapien. Aliquam molestie blandit est sed elementum. Vestibulum a euismod risus, eu tempor turpis. Sed vitae nisi ante.
+
+Nullam aliquam, eros sed scelerisque cursus, ipsum dui cursus nibh, iaculis molestie urna enim non elit. Phasellus sed varius urna, sed auctor turpis. In hac habitasse platea dictumst. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus porttitor, nunc vitae tincidunt volutpat, nisi ipsum eleifend leo, eget gravida ligula leo vel risus. Sed pellentesque turpis a accumsan scelerisque. Cras egestas eu sapien non condimentum.
+
+Etiam commodo mi vel risus pellentesque, sed suscipit enim dictum. Etiam interdum dui lectus, ac porttitor dui venenatis a. Duis ullamcorper, metus vel faucibus molestie, tellus diam posuere nisi, et scelerisque eros neque vitae odio. Vestibulum elit urna, posuere eget elementum a, semper in leo. Nulla ut risus ex. Nam ultrices ultrices magna, vitae pellentesque tellus dapibus a. Praesent gravida eget magna a consequat.`;
 
 const ProductDetail = (props) => {
   const params = useRouter();
@@ -89,6 +95,11 @@ const ProductDetail = (props) => {
           />
         </Box>
         <Box as={"header"} display={"flex"} flexDir={"column"} gap={4}>
+          {productDetails?.genStaticPages === "true" && (
+            <Badge rounded="full" px="2" fontSize="0.8em" colorScheme="red">
+              Hot Selling
+            </Badge>
+          )}
           <Heading lineHeight={1.1} fontWeight={600} fontSize={{ base: "2xl" }}>
             {productDetails?.name}
           </Heading>
@@ -167,7 +178,7 @@ const ProductDetail = (props) => {
             <Stack divider={<StackDivider />} spacing="4">
               <Box>
                 <Text pt="2" fontSize="sm">
-                  {productDetails?.description}
+                  {productDetails?.description ?? dummytext}
                 </Text>
               </Box>
             </Stack>
