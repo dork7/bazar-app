@@ -41,7 +41,7 @@ const ProductCard = (props) => {
       <Box
         bg={useColorModeValue("white", "gray.800")}
         maxW="200"
-        maxH="250"
+        h="250"
         shadow="lg"
         //   position="relative"
         _hover={{

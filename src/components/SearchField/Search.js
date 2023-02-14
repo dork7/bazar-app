@@ -1,40 +1,31 @@
-import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Flex,
-  Center,
-  chakra,
-  Input,
-  InputRightAddon,
-  InputGroup,
-} from "@chakra-ui/react";
-import axios from "axios";
-
-// import { SearchIcon } from '@chakra-ui/icons';
-
-import SearchResults from "./SearchResults";
+import { Box, Input, InputGroup, InputRightAddon } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
+import { useDebounce } from "./../Hooks/useDebounce";
+import SearchResults from "./SearchResults";
 
 const Search = () => {
   const [queryText, setQueryText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const debouncedSearchTerm = useDebounce(queryText, 200);
 
   const handleChange = (e) => setQueryText(e.target.value);
 
   useEffect(() => {
-    // if (!queryText) {
-    //   setSearchResults([]);
-    //   return false;
-    // }
-    // (async () => {
-    //   console.log('object :>> ', queryText);
-    //   const url = `/api/search/${queryText}`;
-    //   const { data } = await fetch(url, {
-    //     method: 'GET',
-    //   });
-    //   //   setSearchResults(data);
-    // })();
-  }, [queryText]);
+    if (debouncedSearchTerm) {
+      (async () => {
+        console.log("object :>> ", debouncedSearchTerm);
+        const url = `/api/search/${debouncedSearchTerm}`;
+        const data = await fetch(url, {
+          method: "GET",
+        });
+        const result = await data.json();
+        if (result) {
+          setSearchResults(result);
+        }
+      })();
+    }
+  }, [debouncedSearchTerm]);
 
   return (
     <Box
@@ -56,15 +47,26 @@ const Search = () => {
         </InputRightAddon>
       </InputGroup>
 
-      {/* {queryText && (
-        <Box maxH="70vh" p="0" overflowY="auto">
+      {queryText && (
+        <Box
+          maxH="70vh"
+          p="0"
+          overflowY="auto"
+          position={"absolute"}
+          backgroundColor="white"
+          zIndex={999}
+          w="50%  "
+        >
           <Box px={4}>
             <Box borderTopWidth="1px" pt={2} pb={4}>
-              <SearchResults searchResults={searchResults} />
+              <SearchResults
+                searchResults={searchResults}
+                {...{ setSearchResults }}
+              />
             </Box>
           </Box>
         </Box>
-      )} */}
+      )}
     </Box>
   );
 };

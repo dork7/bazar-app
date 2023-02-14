@@ -16,6 +16,10 @@ export default async function handler(req, res) {
       const productIds = await getStaticProductIds(client, "products", {
         genStaticPages: "true",
       });
+      if (!productIds) {
+        console.log("NO productIDs");
+        res.status(200).json({ msg: "NO productIDs" });
+      }
       const ids = productIds.flatMap((item) => {
         return {
           params: {
