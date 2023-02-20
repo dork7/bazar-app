@@ -84,7 +84,15 @@ const ProductDetail = (props) => {
 
   return (
     <>
-      <Flex gap={6} p={4} bg="white" justify={"space-between"} wrap="wrap">
+      <Flex
+        // gap={6}
+        // p={4}
+        // bg="white"
+        // justify={"space-between"}
+        // wrap="wrap"
+        // w="100%"
+        className={styles.productDetails}
+      >
         <Box h={400} display="flex" alignItems={"center"}>
           <Image
             height={400}
@@ -168,7 +176,7 @@ const ProductDetail = (props) => {
           </HStack>
         </Box>
       </Flex>
-      <Box w={"60vw"} py={4}>
+      <Box py={4} className={styles.productDescription}>
         <Card>
           <CardHeader>
             <Heading size="md">Product Description</Heading>

@@ -1,7 +1,30 @@
-.deliveryCard{
+.productDetails {
+  border-radius: 6px;
+  box-shadow: 1px 1px 1px 1px rgba(119, 119, 119, 0.2);
+  gap: 4rem;
+  padding: 2rem;
+  justify-content: space-between;
+  background-color: white;
+}
+.productDescription {
+  width: 70vw;
+  padding: 2rem;
+  border-radius: 6px;
+}
+
+@media screen and (max-width: 600px) {
+  .productDetails {
     border-radius: 6px;
-    padding: 2px;
-    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-    height: 50px;
- 
+    box-shadow: 1px 1px 1px 1px rgba(119, 119, 119, 0.2);
+    gap: 1rem;
+    padding: 1rem;
+    justify-content: space-between;
+    background-color: white;
+    flex-direction: column;
+  }
+  .productDescription {
+    width: 100vw;
+    padding: 1rem;
+    border-radius: 2px;
+  }
 }
