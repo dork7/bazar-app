@@ -1,0 +1,18 @@
+.mainLayout {
+  display: flex;
+  width: full;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 0 2px;
+}
+@media screen and (max-width: 600px) {
+  .mainLayout {
+    display: flex;
+    width: full;
+    /* flex-direction: column; */
+    /* align-items: center;
+    justify-content: center;
+    padding: 2px 0 2px; */
+  }
+}
