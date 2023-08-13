@@ -82,7 +82,7 @@ const CheckOut = (props) => {
 
   return (
     <Flex
-      w="60%"
+      w="100%"
       justify="space-around"
       gap={4}
       // flexDir={"column"}

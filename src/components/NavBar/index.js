@@ -27,7 +27,7 @@ const NavBar = () => {
       setNavBarItems(navItems);
     }
 
-    return () => {};
+    return () => { };
   }, [userCTX.isLoggedIn]);
 
   const [selectedLink, setSelectedLink] = useState();
@@ -38,6 +38,7 @@ const NavBar = () => {
   return (
     <Flex className={styles.navbar} justify="space-around">
       <HStack gap={6}>
+
         {navBarItems.map((item) => (
           <Link
             href={item.ref}

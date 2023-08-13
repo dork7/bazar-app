@@ -4,15 +4,14 @@ import { Carousel } from "react-responsive-carousel";
 import Image from "next/image";
 import { Box } from "@chakra-ui/react";
 const imgList = [
-  "/assets/images/heroImg1.jpg",
-  "/assets/images/heroImg2.jpg",
-  "/assets/images/heroImg3.jpg",
-  "/assets/images/heroImg4.jpg",
-  "/assets/images/heroImg5.jpg",
+  "/assets/images/hero/1.jpg",
+  "/assets/images/hero/2.jpg",
+  "/assets/images/hero/3.jpg",
+  "/assets/images/hero/5.png",
 ];
 const Hero = () => {
   return (
-    <Box minH={450} w={"70%"}>
+    <Box minH={450} w={"100%"}>
       <Carousel autoPlay infiniteLoop showArrows={false} showThumbs={false}>
         {imgList.map((item, idx) => {
           return (
@@ -22,8 +21,8 @@ const Hero = () => {
                 width={600}
                 alt={item}
                 src={item}
-                style={{ objectFit: "cover" }}
-                // showThumbs={false}
+                style={{ objectFit: "fit" }}
+              // showThumbs={false}
               />
             </Box>
           );

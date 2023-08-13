@@ -14,7 +14,6 @@ const Search = () => {
   useEffect(() => {
     if (debouncedSearchTerm) {
       (async () => {
-        console.log("object :>> ", debouncedSearchTerm);
         const url = `/api/search/${debouncedSearchTerm}`;
         const data = await fetch(url, {
           method: "GET",

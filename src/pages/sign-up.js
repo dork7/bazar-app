@@ -104,7 +104,7 @@ const SignUp = () => {
               color={"gray.500"}
               isTruncated
             >
-              Welcome to Daraz! Sign up
+              Welcome! Sign up
             </Box>
             <Stack spacing={4} p="1rem">
               <FormControl isRequired>
