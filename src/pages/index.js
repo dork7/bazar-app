@@ -19,7 +19,7 @@ export default function Home(props) {
     if (data) {
       setProducts(data.products);
     }
-    return () => {};
+    return () => { };
   }, [data]);
 
   return (
@@ -39,7 +39,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      preFetchedProducts: data.products,
+      preFetchedProducts: data?.products,
     },
     // revalidate: 100,
   };

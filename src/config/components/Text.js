@@ -19,12 +19,12 @@ export const ExtendedText = {
       color: "#212121",
 
       _hover: {
-        color: "orange",
+        color: "#9BA4B5",
         textDecoration: "underline",
       },
     },
     navTextSelected: {
-      color: "orange",
+      color: "#9BA4B5",
     },
 
     sm: {

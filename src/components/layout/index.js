@@ -1,14 +1,10 @@
 import NotificationContext from "@/store/NotificationContext";
 import { Box, Flex } from "@chakra-ui/layout";
-import React, { useContext } from "react";
-import TabStack from "../CategoryTabs/TabStack";
+import { useContext } from "react";
 import Footer from "../Footer";
-import Hero from "../Hero";
 import NavBar from "../NavBar";
 import Notification from "../Notification/notification";
-import ProductCard from "../ProductCard";
-import ProductSection from "../ProductSection";
-import SearchBar from "../SearchBar";
+import SearchBar from "../searchBar";
 import styles from "./layout.module.css";
 
 const Layout = ({ children }) => {
@@ -19,17 +15,12 @@ const Layout = ({ children }) => {
     <>
       <NavBar />
       <Flex justify="center" flexDir={"column"} align="center">
-        <Box w="70%">
+        <Box w="70%"
+        >
           <SearchBar />
         </Box>
         <Box
           className={styles.mainLayout}
-          // w="full"
-          // justify="center"
-          // flexDir={'column'}
-          // align="center"
-          // bgColor={'#f5f5f5'}
-          // py={2}
         >
           {children}
         </Box>

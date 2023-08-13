@@ -92,6 +92,7 @@ const Login = () => {
           boxShadow="md"
           p={10}
           mb={12}
+          h={"50vh"}
         >
           <Box minW={{ base: "90%", md: "468px" }}>
             <Box
@@ -102,7 +103,7 @@ const Login = () => {
               color={"gray.500"}
               isTruncated
             >
-              Welcome to Daraz! Sign up
+              Welcome! Sign up
             </Box>
             <Stack spacing={4} p="1rem">
               <FormControl isRequired>

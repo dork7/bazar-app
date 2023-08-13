@@ -15,7 +15,7 @@ const theme = extendTheme({
     Text,
   },
   colors: {
-    mOrange: '#f57224',
+    mOrange: '#D8D9DA',
   },
 });
 

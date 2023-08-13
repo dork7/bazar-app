@@ -94,6 +94,7 @@ const SignUp = () => {
           boxShadow="md"
           p={10}
           mb={12}
+          h={"50vh"}
         >
           <Box minW={{ base: "90%", md: "468px" }}>
             <Box

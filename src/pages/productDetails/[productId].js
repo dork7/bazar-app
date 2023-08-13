@@ -62,7 +62,7 @@ const ProductDetail = (props) => {
     if (data) {
       setProductDetails(data[0]);
     }
-    return () => {};
+    return () => { };
   }, [data]);
 
   if (!productDetails) {
@@ -148,7 +148,7 @@ const ProductDetail = (props) => {
           flexDir={"column"}
           gap={4}
           borderRadius={8}
-          // maxW={'30%'}
+        // maxW={'30%'}
         >
           <Heading fontWeight={200} fontSize={{ base: "2xl" }}>
             Delivery Address
@@ -211,7 +211,6 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
   const { productIds } = await getStaticProductIds();
-  console.log(`productIds for static page generation`, productIds);
   return {
     paths: productIds,
     fallback: true,
