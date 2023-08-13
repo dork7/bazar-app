@@ -1,9 +1,10 @@
 .productGrid {
   display: grid;
   grid-template-columns: repeat(6, auto);
-  gap: 2px;
+  gap: 1rem;
   margin: 0px 0px 2rem;
 }
+
 @media screen and (max-width: 600px) {
   .productGrid {
     display: grid;

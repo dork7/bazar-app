@@ -8,7 +8,7 @@ const ProductSection = (props) => {
   const productList = products ?? [];
   return (
     <>
-      <Flex w="70%" justify="space-between" gap={12} flexDir={"column"}>
+      <Flex w="70%" justify="space-between" flexDir={"column"}>
         <Box
           fontSize="2xl"
           fontWeight="semibold"
